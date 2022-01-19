@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState('');
@@ -16,25 +16,27 @@ export default function App() {
   };
 
   return (
-    <View style={styles.screen}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Course Goal"
-          style={styles.input}
-          //without parentheses, cuz this would execute this function when this code gets parsed
-          //when the UI gets rendered for the first time. you don't want to execute this immediately.
-          onChangeText={goalInputHandler}
-          value={enteredGoal}
-        />
-        <Button title="ADD" onPress={addGoalHandler} />
+    <ScrollView>
+      <View style={styles.screen}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Course Goal"
+            style={styles.input}
+            //without parentheses, cuz this would execute this function when this code gets parsed
+            //when the UI gets rendered for the first time. you don't want to execute this immediately.
+            onChangeText={goalInputHandler}
+            value={enteredGoal}
+          />
+          <Button title="ADD" onPress={addGoalHandler} />
+        </View>
+        <ScrollView>
+          {coursGoals.map((goal) => (
+            <View key={goal} style={styles.listItem}>
+              <Text>{goal}</Text>
+            </View>))}
+        </ScrollView>
       </View>
-      <View>
-        {coursGoals.map((goal) => (
-          <View key={goal} style={styles.listItem}>
-            <Text>{goal}</Text>
-          </View>))}
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
