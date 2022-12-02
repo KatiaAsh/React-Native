@@ -1,4 +1,3 @@
-// App.js
 import { useState } from 'react';
 import {
   StyleSheet,
@@ -18,11 +17,16 @@ export default function App() {
     setModalIsVisible(true);
   }
 
+  function endAddGoalHandler(){
+    setModalIsVisible(false);
+  }
+
   function addGoalHandler(enteredGoalText) {
     setCourseGoals((currentCourseGoals) => [
       ...currentCourseGoals,
       { text: enteredGoalText, id: Math.random().toString() },
     ]);
+    endAddGoalHandler();
   }
 
   function deleteGoalHandler(id){
@@ -36,7 +40,11 @@ export default function App() {
     <View style={styles.appContainer}>
       <Button title='Add New Goal' color="#5e0acc" onPress={startAddGoalHandler}/>
       {/* {ModalIsVisible && <GoalInput onAddGoal={addGoalHandler} />} */}
-      <GoalInput visible={ModalIsVisible} onAddGoal={addGoalHandler}/>
+      <GoalInput
+        visible={ModalIsVisible}
+        onAddGoal={addGoalHandler}
+        onCancel={endAddGoalHandler}
+      />
       <View style={styles.goalsContainer}>
         <FlatList
           data={courseGoals}
