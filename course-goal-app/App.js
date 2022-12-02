@@ -1,3 +1,4 @@
+// App.js
 import { useState } from 'react';
 import {
   StyleSheet,
